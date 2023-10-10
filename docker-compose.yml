@@ -1,0 +1,21 @@
+version: '3'
+services:
+  youtube:
+    image: youtube
+    command: nvidia-smi
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - C:/Users/evanq/Documents/EAS_Work/CTIA/main/models:/app/model
